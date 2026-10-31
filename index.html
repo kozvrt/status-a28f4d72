@@ -15,14 +15,14 @@ body{margin:0;font-family:system-ui;background:#0b0f1a;color:#e8ecff}h1{font-siz
 </style></head><body><h1>🤖 Bot HQ <span id=t style="font-size:12px;opacity:.6"></span></h1>
 <div class=g><div class=gauge><div class=ring id=mr style="--c:#b36bff"><b id=mp>–</b></div><div id=mt>Memory</div></div><div class=gauge><div class=ring id=dr style="--c:#ffb84d"><b id=dp>–</b></div><div id=dt>Disk</div></div></div>
 <div class=bar id=br>🌐 Browser: …</div><div class=grid id=g></div>
-<p style="font-size:11px;opacity:.6;margin:12px">Status is read passively from the box (no bot reports): 🌐 from the shared browser-queue line; ⚡ active = bot's work folder changed in last 15 min; 💤 = no changes 15+ min; ❔ = no folder to watch. Box publishes about every 60s; page checks every 30s.</p>
+<p style="font-size:11px;opacity:.6;margin:12px">Status is read passively from the box (no bot reports): 🌐 from the shared browser-queue line; ⚡ active = bot's work folder changed in last 15 min; 💤 = no changes 15+ min; ❔ = no folder to watch. Box publishes about every 60s; page checks every 75s.</p>
 <script>
 const G=v=>(v/1073741824).toFixed(1)+'G';const IC={active:'⚡',browser:'🌐',sleeping:'💤',unknown:'❔'},LB={active:'ACTIVE',browser:'ON BROWSER',sleeping:'SLEEPING',unknown:'UNKNOWN'};
-async function r(){try{const d=await (await fetch('https://raw.githubusercontent.com/kozvrt/status-a28f4d72/main/status.json?t='+Date.now(),{cache:'no-store'})).json();
+async function r(){try{const d=await (await fetch('https://api.github.com/repos/kozvrt/status-a28f4d72/contents/status.json?t='+Date.now(),{cache:'no-store',headers:{Accept:'application/vnd.github.raw'}})).json();
 const mp=Math.round(d.mem.used/d.mem.total*100),dp=Math.round(d.disk.used/d.disk.total*100);
 mr.style.setProperty('--p',mp);dr.style.setProperty('--p',dp);window.mp.textContent=mp+'%';window.dp.textContent=dp+'%';
 mt.textContent=`RAM ${(d.mem.used/1024).toFixed(1)}G used · ${(d.mem.avail/1024).toFixed(1)}G free`;dt.textContent=`Disk ${G(d.disk.used)} used · ${G(d.disk.avail)} free`;
 br.textContent=`🌐 Browser queue: ${d.browserline} · ${d.chrome} Chrome processes running`;
 t.textContent='updated '+new Date(d.ts*1000).toLocaleTimeString();
 g.innerHTML=d.bots.map(b=>`<div class="c ${b.status}"><div class=av><span class=z>${IC[b.status]}</span></div><div class=n>${b.name}</div><div class=s>${LB[b.status]}</div><div class=h>${b.last?'last file change '+new Date(b.last*1000).toLocaleTimeString():''}<br>${b.how}</div></div>`).join('')}catch(e){br.textContent='⚠️ offline, retrying…'}}
-r();setInterval(r,30000)</script></body></html>
+r();setInterval(r,75000)</script></body></html>
