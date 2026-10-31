@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta name=viewport content="width=device-width,initial-scale=1"><title>Bot HQ</title><style>
+<!doctype html><html><head><meta name=viewport content="width=device-width,initial-scale=1"><title>Bot Status</title><link rel=manifest href=manifest.webmanifest><meta name=theme-color content="#0b0f1a"><link rel=apple-touch-icon href=icon-192.png><link rel=icon href=icon-192.png><style>
 body{margin:0;font-family:system-ui;background:#0b0f1a;color:#e8ecff}h1{font-size:20px;margin:14px}
 .g{display:flex;gap:10px;margin:0 12px}.gauge{flex:1;background:#151b2e;border-radius:14px;padding:10px;text-align:center}
 .ring{--p:0;width:90px;height:90px;margin:auto;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),#2a3150 0);display:grid;place-items:center;transition:--p 1s}
@@ -25,4 +25,4 @@ mt.textContent=`RAM ${(d.mem.used/1024).toFixed(1)}G used · ${(d.mem.avail/1024
 br.textContent=`🌐 Browser queue: ${d.browserline} · ${d.chrome} Chrome processes running`;
 t.textContent='updated '+new Date(d.ts*1000).toLocaleTimeString();
 g.innerHTML=d.bots.map(b=>`<div class="c ${b.status}"><div class=av><span class=z>${IC[b.status]}</span></div><div class=n>${b.name}</div><div class=s>${LB[b.status]}</div><div class=h>${b.last?'last file change '+new Date(b.last*1000).toLocaleTimeString():''}<br>${b.how}</div></div>`).join('')}catch(e){br.textContent='⚠️ offline, retrying…'}}
-r();setInterval(r,75000)</script></body></html>
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");r();setInterval(r,75000)</script></body></html>
